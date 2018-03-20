@@ -1,4 +1,5 @@
 import com.thoughtworks.bank.Account;
+import com.thoughtworks.bank.InvalidAccountNumberException;
 import com.thoughtworks.bank.MinimumBalanceException;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +12,8 @@ public class AccountTest {
   private Account account;
 
   @Before
-  public void setUp() throws MinimumBalanceException {
-    account = new Account("1234", 1000);
+  public void setUp() throws MinimumBalanceException, InvalidAccountNumberException {
+    account = new Account("1234-1234", 1000);
   }
 
   @Test
@@ -22,11 +23,17 @@ public class AccountTest {
 
   @Test
   public void checkAccountNumber() {
-    assertThat(account.getAccountNumber(),is("1234"));
+    assertThat(account.getAccountNumber(),is("1234-1234"));
   }
 
   @Test(expected = MinimumBalanceException.class)
-  public void checkMinimumBalance() throws MinimumBalanceException {
-    new Account("1235", 200);
+  public void checkMinimumBalance() throws MinimumBalanceException, InvalidAccountNumberException {
+    new Account("1235-1234", 200);
   }
+
+  @Test(expected = InvalidAccountNumberException.class)
+  public void validateAccountNumber() throws MinimumBalanceException, InvalidAccountNumberException {
+    new Account("1234-678",1200);
+  }
+
 }
