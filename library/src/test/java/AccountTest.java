@@ -31,11 +31,6 @@ public class AccountTest {
     new Account("1235-1234", 200.0);
   }
 
-  @Test(expected = InvalidAccountNumberException.class)
-  public void validateAccountNumber() throws MinimumBalanceException, InvalidAccountNumberException {
-    new Account("1234-678",1200.0);
-  }
-
   @Test
   public void debitIfAboveMinBalance() throws MinimumBalanceException, InvalidAccountNumberException {
     Account account = new Account("1234-5678",5000.0);
