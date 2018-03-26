@@ -1,5 +1,6 @@
 package com.thoughtworks.bank;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -28,7 +29,24 @@ public class Transactions {
 
   @Override
   public int hashCode() {
-
     return Objects.hash(list);
+  }
+
+  public Transactions filterByAmountGreaterThan(double amount) {
+
+    Transactions transactions = new Transactions();
+    for (Transaction transaction : list){
+      if (transaction.getAmount() >= amount){
+        transactions.list.add(transaction);
+        System.out.println(transaction);
+      }
+    }
+    return transactions;
+  }
+
+  public void print(PrintWriter writer) {
+    for (Transaction transaction : list){
+      writer.println(transaction.toString());
+    }
   }
 }

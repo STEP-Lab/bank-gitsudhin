@@ -31,4 +31,17 @@ public abstract class Transaction {
   public int hashCode() {
     return Objects.hash(amount, destinationAcc);
   }
+
+  public double getAmount() {
+    return amount;
+  }
+
+  @Override
+  public String toString() {
+    return "Transaction{" +
+        "amount=" + amount +
+        ", destinationAcc='" + destinationAcc + '\'' +
+        ", date=" + date +
+        '}';
+  }
 }

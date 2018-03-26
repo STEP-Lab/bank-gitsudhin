@@ -1,3 +1,5 @@
+package com.thoughtworks.bank;
+
 import com.thoughtworks.bank.Account;
 import com.thoughtworks.bank.AccountNumber;
 import com.thoughtworks.bank.InvalidAccountNumberException;
