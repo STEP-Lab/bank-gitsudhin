@@ -1,37 +1,37 @@
 package com.thoughtworks.bank;
 
-import java.util.regex.Pattern;
-
-import static java.lang.String.valueOf;
-
 public class Account {
-  private final String accountNumber;
+  private final AccountNumber accountNumber;
+  private final Transactions transactions;
   private double balance;
 
-  public Account(String accountNumber, double balance) throws MinimumBalanceException, InvalidAccountNumberException {
-    if (!Pattern.matches("[0-9]{4}[-][0-9]{4}",valueOf(accountNumber))){
-      throw new InvalidAccountNumberException();
-    }
-    this.accountNumber = accountNumber;
+  public Account(AccountNumber accountNumber, double balance) throws MinimumBalanceException {
     if (balance < 1000){
       throw new MinimumBalanceException();
     }
     this.balance = balance;
+    this.accountNumber = accountNumber;
+    this.transactions = new Transactions();
   }
 
   public double getBalance() {
     return balance;
   }
 
-  public String getAccountNumber() {
+  public AccountNumber getAccountNumber() {
     return accountNumber;
   }
 
-  public void debitMoney(double amount) throws MinimumBalanceException {
+  public void debitMoney(double amount, String destinationAcc) throws MinimumBalanceException {
     if(this.balance - amount < 1000){
       throw new MinimumBalanceException();
     }
     this.balance -= amount;
+    transactions.debit(amount,destinationAcc);
+  }
+
+  public Transactions getAllTransactions() {
+    return this.transactions;
   }
 }
   
