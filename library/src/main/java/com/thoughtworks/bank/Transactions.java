@@ -14,6 +14,10 @@ public class Transactions {
     this.list.add(new DebitTransaction(amount,name));
   }
 
+  public void credit(double amount, String name) {
+    this.list.add(new CreditTransaction(amount,name));
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
