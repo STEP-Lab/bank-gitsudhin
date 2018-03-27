@@ -99,7 +99,16 @@ public class TransactionsTest {
   @Test
   @Ignore
   public void shouldFilterAllDebitTransactions() {
+    Transactions transactions = new Transactions();
+    transactions.debit(500.0,"Sudhin");
+    transactions.credit(1000.0,"Sudhin");
+    transactions.debit(600.0,"ATM");
+    Transactions  getAllDebitTransactions = transactions.getAllDebitTransactions();
 
+    CreditTransaction credit1 = new CreditTransaction(1000.0, "Sudhin");
+    DebitTransaction debit1 = new DebitTransaction(600.0, "ATM");
+    DebitTransaction debit2 = new DebitTransaction(500.0, "Sudhin");
+    assertThat(getAllDebitTransactions.list,hasItems(debit1,debit2));
   }
 
   @Test

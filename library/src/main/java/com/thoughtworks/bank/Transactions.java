@@ -60,4 +60,15 @@ public class Transactions {
     }
     return transactions;
   }
+
+  public Transactions getAllDebitTransactions() {
+    Transactions transactions = new Transactions();
+    for (Transaction transaction: list ) {
+      if (transaction instanceof DebitTransaction){
+        transactions.list.add(transaction);
+        System.out.println(transaction);
+      }
+    }
+    return transactions;
+  }
 }
