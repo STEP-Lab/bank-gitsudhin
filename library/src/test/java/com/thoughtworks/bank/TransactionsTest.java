@@ -69,7 +69,7 @@ public class TransactionsTest {
   }
 
   @Test
-  public void shouldFilterTransactionsByAmount() {
+  public void shouldFilterTransactionsAboveGivenAmount() {
     Transactions transactions = new Transactions();
     transactions.credit(500.0,"Sudhin");
     transactions.credit(1000.0,"Sudhin");
@@ -80,6 +80,19 @@ public class TransactionsTest {
     CreditTransaction credit2 = new CreditTransaction(500.0, "Sudhin");
     CreditTransaction credit3 = new CreditTransaction(600.0, "ATM");
     assertThat(filteredTransactionsByAmount.list,hasItems(credit1,credit2,credit3));
+  }
+
+  @Test
+  public void shouldFilterTransactionsBelowGivenAmount() {
+    Transactions transactions = new Transactions();
+    transactions.credit(500.0,"Sudhin");
+    transactions.credit(1000.0,"Sudhin");
+    transactions.debit(600.0,"ATM");
+    Transactions filteredTransactionsByAmount = transactions.getAllTransactionsBelow(600);
+
+    CreditTransaction credit = new CreditTransaction(500.0, "Sudhin");
+    DebitTransaction debit = new DebitTransaction(600.0, "ATM");
+    assertThat(filteredTransactionsByAmount.list,hasItems(credit,debit));
   }
 
   @Test

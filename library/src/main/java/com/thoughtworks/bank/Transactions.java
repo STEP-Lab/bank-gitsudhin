@@ -71,4 +71,15 @@ public class Transactions {
     }
     return transactions;
   }
+
+  public Transactions getAllTransactionsBelow(double amount) {
+    Transactions transactions = new Transactions();
+    for (Transaction transaction : list){
+      if (transaction.getAmount() <= amount){
+        transactions.list.add(transaction);
+        System.out.println(transaction);
+      }
+    }
+    return transactions;
+  }
 }
