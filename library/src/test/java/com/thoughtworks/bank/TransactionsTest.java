@@ -46,7 +46,7 @@ public class TransactionsTest {
   }
 
   @Test
-  public void shoudPrintTransaction() throws FileNotFoundException, UnsupportedEncodingException {
+  public void shouldwriteAllTransactionsToTextFile() throws FileNotFoundException, UnsupportedEncodingException {
     ArrayList<String> result = new ArrayList<>();
     transactions.credit(1000,"Sudhin");
     transactions.debit(1000,"ATM");
@@ -66,6 +66,29 @@ public class TransactionsTest {
     transactions.print(writer);
     writer.close();
     assertThat(result,hasItems(creditToSudhin.toString(),debitFromSudhin.toString()));
+  }
+
+  @Test
+  public void shouldWriteAllTransactionsToCsvFile() throws FileNotFoundException, UnsupportedEncodingException {
+    ArrayList<String> result = new ArrayList<>();
+    transactions.credit(2000,"Sudhin");
+    transactions.debit(1000,"ATM");
+    transactions.debit(500,"ATM");
+
+    CreditTransaction creditToSudhin = new CreditTransaction(new Date(), 2000, "Sudhin");
+    DebitTransaction debitFromSudhin1 = new DebitTransaction(new Date(), 1000, "ATM");
+    DebitTransaction debitFromSudhin2 = new DebitTransaction(new Date(), 500, "ATM");
+
+    PrintWriter writer = new PrintWriter("transactionHistory.csv", "UTF-8"){
+      @Override
+      public void print(String s) {
+        super.print(s);
+        result.add(s);
+      }
+    };
+    transactions.writeCsv(writer);
+    writer.close();
+    assertThat(result,hasItems(creditToSudhin.toCsv(),debitFromSudhin1.toCsv(),debitFromSudhin2.toCsv()));
   }
 
   @Test

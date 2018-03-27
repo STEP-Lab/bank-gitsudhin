@@ -5,7 +5,7 @@ import java.util.Date;
 public class DebitTransaction extends Transaction {
 
   protected DebitTransaction(Date date, double amount, String destinationAcc) {
-    super(date, amount, destinationAcc);
+    super(date, amount, destinationAcc, "DEBIT");
   }
 
   public DebitTransaction(double amount, String name) {

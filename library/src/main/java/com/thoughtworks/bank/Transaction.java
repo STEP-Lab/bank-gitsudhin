@@ -6,12 +6,14 @@ import java.util.Objects;
 public abstract class Transaction {
   protected final double amount;
   protected final String destinationAcc;
+  protected final String typeOfTransaction;
   protected Date date;
 
-  public Transaction(Date date, double amount, String destinationAcc) {
+  public Transaction(Date date, double amount, String destinationAcc, String typeOfTransaction) {
     this.date = date;
     this.amount = amount;
     this.destinationAcc = destinationAcc;
+    this.typeOfTransaction = typeOfTransaction;
   }
 
   public Date getDate() {
@@ -43,5 +45,11 @@ public abstract class Transaction {
         ", destinationAcc='" + destinationAcc + '\'' +
         ", date=" + date +
         '}';
+  }
+
+  public String toCsv() {
+    return date.toString() +
+        "," + typeOfTransaction +
+        "," + amount;
   }
 }

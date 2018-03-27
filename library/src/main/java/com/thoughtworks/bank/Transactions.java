@@ -82,4 +82,11 @@ public class Transactions {
     }
     return transactions;
   }
+
+  public void writeCsv(PrintWriter writer) {
+    writer.println("DateOfTransaction,TypeOfTransaction,Amount");
+    for (Transaction transaction: list) {
+      writer.println(transaction.toCsv());
+    }
+  }
 }

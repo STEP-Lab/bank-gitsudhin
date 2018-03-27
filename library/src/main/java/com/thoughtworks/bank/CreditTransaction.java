@@ -8,6 +8,6 @@ public class CreditTransaction extends Transaction {
   }
 
   public CreditTransaction(Date date, double amount, String destinationAcc) {
-    super(date, amount, destinationAcc);
+    super(date, amount, destinationAcc, "CREDIT");
   }
 }
