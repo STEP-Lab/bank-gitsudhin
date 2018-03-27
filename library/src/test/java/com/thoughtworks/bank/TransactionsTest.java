@@ -5,8 +5,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +17,7 @@ public class TransactionsTest {
   private Transactions transactions;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     transactions = new Transactions();
   }
 
@@ -71,16 +69,48 @@ public class TransactionsTest {
   }
 
   @Test
-  public void ShouldFilterTransactionsByAmount() {
+  public void shouldFilterTransactionsByAmount() {
     Transactions transactions = new Transactions();
     transactions.credit(500.0,"Sudhin");
     transactions.credit(1000.0,"Sudhin");
     transactions.credit(600.0,"ATM");
-    Transactions filteredTransactions = transactions.filterByAmountGreaterThan(500);
+    Transactions filteredTransactionsByAmount = transactions.getAllTransactionsAbove(500);
 
     CreditTransaction credit1 = new CreditTransaction(1000.0, "Sudhin");
     CreditTransaction credit2 = new CreditTransaction(500.0, "Sudhin");
     CreditTransaction credit3 = new CreditTransaction(600.0, "ATM");
-    assertThat(filteredTransactions.list,hasItems(credit1,credit2,credit3));
+    assertThat(filteredTransactionsByAmount.list,hasItems(credit1,credit2,credit3));
+  }
+
+  @Test
+  public void shouldFilterAllCreditTransactions() {
+    Transactions transactions = new Transactions();
+    transactions.credit(500.0,"Sudhin");
+    transactions.credit(1000.0,"Sudhin");
+    transactions.debit(600.0,"ATM");
+    Transactions  getAllCreditTransactions = transactions.getAllCreditTransactions();
+
+    CreditTransaction credit1 = new CreditTransaction(1000.0, "Sudhin");
+    CreditTransaction credit2 = new CreditTransaction(500.0, "Sudhin");
+    DebitTransaction debit1 = new DebitTransaction(500.0, "ATM");
+    assertThat(getAllCreditTransactions.list,hasItems(credit1,credit2));
+  }
+
+  @Test
+  @Ignore
+  public void shouldFilterAllDebitTransactions() {
+
+  }
+
+  @Test
+  @Ignore
+  public void shouldFilterTransactionsBefore() {
+
+  }
+
+  @Test
+  @Ignore
+  public void shouldFilterTransactionsAfter() {
+
   }
 }

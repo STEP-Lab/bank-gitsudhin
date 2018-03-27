@@ -32,7 +32,7 @@ public class Transactions {
     return Objects.hash(list);
   }
 
-  public Transactions filterByAmountGreaterThan(double amount) {
+  public Transactions getAllTransactionsAbove(double amount) {
 
     Transactions transactions = new Transactions();
     for (Transaction transaction : list){
@@ -48,5 +48,16 @@ public class Transactions {
     for (Transaction transaction : list){
       writer.println(transaction.toString());
     }
+  }
+
+  public Transactions getAllCreditTransactions() {
+    Transactions transactions = new Transactions();
+    for (Transaction transaction: list ) {
+      if (transaction instanceof CreditTransaction){
+        transactions.list.add(transaction);
+        System.out.println(transaction);
+      }
+    }
+    return transactions;
   }
 }

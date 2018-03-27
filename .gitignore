@@ -7,4 +7,4 @@
 *.iml
 *.html
 *.class
-**/out/*
+**/out
