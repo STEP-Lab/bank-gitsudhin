@@ -3,31 +3,33 @@ package com.thoughtworks.bank;
 public class Account {
   private final AccountNumber accountNumber;
   private final Transactions transactions;
-  private double balance;
+  private Money balance;
 
-  public Account(AccountNumber accountNumber, double balance) throws MinimumBalanceException {
-    if (balance < 1000){
+  public Account(AccountNumber accountNumber,double balance) throws MinimumBalanceException, InvalidAmountException {
+
+    if (balance < 1000.0){
       throw new MinimumBalanceException();
     }
-    this.balance = balance;
+    this.balance = new Money(balance);
     this.accountNumber = accountNumber;
     this.transactions = new Transactions();
   }
 
-  public double getBalance() {
-    return balance;
+  public Double getBalance() {
+    return balance.getMoney();
   }
 
   public AccountNumber getAccountNumber() {
     return accountNumber;
   }
 
-  public void debitMoney(double amount, String destinationAcc) throws MinimumBalanceException {
-    if(this.balance - amount < 1000){
+  public void debitMoney(double amount, String destinationAcc) throws MinimumBalanceException, InvalidAmountException {
+    double debitAmount = new Money(amount).getMoney();
+    if(this.balance.getMoney() - debitAmount < 1000){
       throw new MinimumBalanceException();
     }
-    this.balance -= amount;
-    transactions.debit(amount,destinationAcc);
+    this.balance.deduceMoney(debitAmount);
+    transactions.debit(debitAmount,destinationAcc);
   }
 
   public Transactions getAllTransactions() {

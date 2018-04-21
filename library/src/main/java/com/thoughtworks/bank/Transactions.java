@@ -2,14 +2,23 @@ package com.thoughtworks.bank;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class Transactions {
+//  private final boolean modifiable;
+
+
+  protected final ArrayList<Transaction> list;
+
   public Transactions() {
      this.list = new ArrayList<>();
   }
-
-  protected ArrayList<Transaction> list;
+//
+//  private Transactions(boolean modifiable) {
+//    this.modifiable = modifiable;
+//  }
 
   public void debit(double amount, String name) {
     this.list.add(new DebitTransaction(amount,name));
@@ -36,11 +45,12 @@ public class Transactions {
 
     Transactions transactions = new Transactions();
     for (Transaction transaction : list){
+//      todo : move logic to transaction
       if (transaction.getAmount() >= amount){
         transactions.list.add(transaction);
-        System.out.println(transaction);
       }
     }
+//    transactions.list = Collections.unmodifiableList((transactions.list));
     return transactions;
   }
 

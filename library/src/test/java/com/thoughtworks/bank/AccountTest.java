@@ -11,7 +11,7 @@ public class AccountTest {
   private Account account;
 
   @Before
-  public void setUp() throws MinimumBalanceException, InvalidAccountNumberException {
+  public void setUp() throws MinimumBalanceException, InvalidAccountNumberException, InvalidAmountException {
     AccountNumber accountNumber = new AccountNumber("1234-1234");
     account = new Account(accountNumber,1000.50);
   }
@@ -27,13 +27,13 @@ public class AccountTest {
   }
 
   @Test(expected = MinimumBalanceException.class)
-  public void checkMinimumBalance() throws MinimumBalanceException, InvalidAccountNumberException {
+  public void checkMinimumBalance() throws MinimumBalanceException, InvalidAccountNumberException, InvalidAmountException {
     AccountNumber accountNumber = new AccountNumber("1234-1245");
     new Account(accountNumber, 200.0);
   }
 
   @Test
-  public void debitIfAboveMinBalance() throws MinimumBalanceException, InvalidAccountNumberException {
+  public void debitIfAboveMinBalance() throws MinimumBalanceException, InvalidAccountNumberException, InvalidAmountException {
     AccountNumber accountNumber = new AccountNumber("1234-1235");
     Account account = new Account(accountNumber, 5000.0);
     account.debitMoney(1000.0, "ATM");
@@ -41,7 +41,7 @@ public class AccountTest {
   }
 
   @Test
-  public void shouldUpdateTransactionsListOnDebit() throws MinimumBalanceException, InvalidAccountNumberException {
+  public void shouldUpdateTransactionsListOnDebit() throws MinimumBalanceException, InvalidAccountNumberException, InvalidAmountException {
     AccountNumber accountNumber = new AccountNumber("1234-1235");
     Account account = new Account(accountNumber, 5000.0);
     account.debitMoney(500,"ATM");
@@ -51,7 +51,7 @@ public class AccountTest {
   }
 
   @Test(expected = MinimumBalanceException.class)
-  public void debitIfBelowMinBalance() throws MinimumBalanceException, InvalidAccountNumberException {
+  public void debitIfBelowMinBalance() throws MinimumBalanceException, InvalidAccountNumberException, InvalidAmountException {
     AccountNumber accountNumber = new AccountNumber("1234-5678");
     Account account = new Account(accountNumber, 5000.0);
     account.debitMoney(4500.0,"ATM");

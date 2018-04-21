@@ -1,2 +1,2 @@
-Transaction{amount=1000.0, destinationAcc='Sudhin', date=Wed Mar 28 00:33:36 IST 2018}
-Transaction{amount=1000.0, destinationAcc='ATM', date=Wed Mar 28 00:33:36 IST 2018}
+Transaction{amount=1000.0, destinationAcc='Sudhin', date=Sat Apr 21 12:40:25 IST 2018}
+Transaction{amount=1000.0, destinationAcc='ATM', date=Sat Apr 21 12:40:25 IST 2018}
